@@ -88,15 +88,12 @@ func resourceSetupCreate(d *schema.ResourceData, meta interface{}) error {
 			return fmt.Errorf("error setup endpoint: %v", err)
 		}
 
-		fmt.Println(result)
-
 		d.Set("token", *result.Auth.Token)
 		d.Set("user_id", result.User.Id)
 		d.Set("bucket_id", result.Bucket.Id)
 		d.Set("org_id", result.Org.Id)
 		d.Set("auth_id", result.Auth.Id)
-		id := ""
-		id = influx.ServerURL()
+		id := influx.ServerURL()
 		d.SetId(id)
 	}
 

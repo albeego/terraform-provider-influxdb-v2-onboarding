@@ -3,7 +3,7 @@ package influxdbv2_onboarding
 import (
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"github.com/lancey-energy-storage/influxdb-client-go"
+	"github.com/influxdata/influxdb-client-go/v2"
 )
 
 func Provider() terraform.ResourceProvider {
@@ -15,7 +15,7 @@ func Provider() terraform.ResourceProvider {
 			"url": {
 				Type:        schema.TypeString,
 				Optional:    true,
-				DefaultFunc: schema.EnvDefaultFunc("INFLUXDB_V2_URL", "http://localhost:9999"),
+				DefaultFunc: schema.EnvDefaultFunc("INFLUXDB_V2_URL", "http://localhost:8086"),
 			},
 		},
 		ConfigureFunc: providerConfigure,
@@ -23,9 +23,7 @@ func Provider() terraform.ResourceProvider {
 }
 
 func providerConfigure(d *schema.ResourceData) (interface{}, error) {
-	influx, err := influxdb.New(d.Get("url").(string), "")
-	if err != nil {
-		return nil, err
-	}
+	influx := influxdb2.NewClient(d.Get("url").(string), "")
+	
 	return influx, nil
 }

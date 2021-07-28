@@ -1,5 +1,14 @@
+terraform {
+  required_providers {
+    influxdbv2-onboarding = {
+      source = "lancey.fr/influx/influxdbv2-onboarding"
+      version = "0.2.0"
+    }
+  }
+}
+
 provider "influxdbv2-onboarding" {
-  url = "http://localhost:9999"
+  url = "http://localhost:8086"
 }
 
 resource "influxdbv2-onboarding_setup" "setup" {

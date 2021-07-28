@@ -1,11 +1,17 @@
 package influxdbv2_onboarding
 
 import (
+	"encoding/json"
+	"net/http"
 	"context"
 	"fmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"github.com/lancey-energy-storage/influxdb-client-go"
+	"github.com/influxdata/influxdb-client-go/v2"
 )
+
+type Setup struct {
+	Allowed bool `json:"allowed"`
+}
 
 func ResourceSetup() *schema.Resource {
 	return &schema.Resource{
@@ -60,33 +66,37 @@ func ResourceSetup() *schema.Resource {
 				Type:     schema.TypeBool,
 				Computed: true,
 			},
+			"server_url": {
+				Type: 	schema.TypeString,
+				Computed: true,
+			},
 		},
 	}
 }
 
 func resourceSetupCreate(d *schema.ResourceData, meta interface{}) error {
-	influx := meta.(*influxdb.Client)
+	influx := meta.(influxdb2.Client)
+	serverUrl := influx.ServerURL()
+	d.Set("server_url", serverUrl)
 	err := resourceSetupRead(d, meta)
 	if err != nil {
 		return fmt.Errorf("error getting status of influxdbv2 instance: %v", err)
 	}
 	if d.Get("allowed").(bool) {
-		result, err := influx.Setup(context.Background(), d.Get("username").(string), d.Get("password").(string), d.Get("bucket").(string), d.Get("org").(string), d.Get("retention_period").(int))
+		result, err := influx.Setup(context.Background(), d.Get("username").(string), d.Get("password").(string), d.Get("org").(string), d.Get("bucket").(string), d.Get("retention_period").(int))
 		if err != nil {
 			return fmt.Errorf("error setup endpoint: %v", err)
 		}
 
-		d.Set("token", result.Auth.Token)
-		d.Set("user_id", result.User.ID)
-		d.Set("bucket_id", result.Bucket.ID)
-		d.Set("org_id", result.Org.ID)
-		d.Set("auth_id", result.Auth.ID)
+		fmt.Println(result)
+
+		d.Set("token", *result.Auth.Token)
+		d.Set("user_id", result.User.Id)
+		d.Set("bucket_id", result.Bucket.Id)
+		d.Set("org_id", result.Org.Id)
+		d.Set("auth_id", result.Auth.Id)
 		id := ""
-		url, err := influx.GetUrl()
-		if err != nil {
-			id = ""
-		}
-		id = url
+		id = influx.ServerURL()
 		d.SetId(id)
 	}
 
@@ -94,12 +104,23 @@ func resourceSetupCreate(d *schema.ResourceData, meta interface{}) error {
 }
 
 func resourceSetupRead(d *schema.ResourceData, meta interface{}) error {
-	influx := meta.(*influxdb.Client)
-	result, err := influx.GetSetup()
+	client := &http.Client{}
+	req, err := http.NewRequest(http.MethodGet, d.Get("server_url").(string)+"/api/v2/setup", nil)
 	if err != nil {
-		return fmt.Errorf("unable to call influxdbv2 instance: %v", err)
+		return err
 	}
-	d.Set("allowed", result.Allowed)
+	req.Header.Add("Content-Type", "application/json; charset=utf-8")
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+	setup := &Setup{}
+	if err := json.NewDecoder(resp.Body).Decode(setup); err != nil {
+		return err
+	}
+
+	d.Set("allowed", setup.Allowed)
 	return nil
 }
 

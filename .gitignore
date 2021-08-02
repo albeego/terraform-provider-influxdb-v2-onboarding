@@ -1,0 +1,4 @@
+examples/.terraform/*
+examples/terraform.d
+examples/.terraform*
+terraform*

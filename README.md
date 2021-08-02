@@ -47,7 +47,7 @@ At first, you need to start a new Influxdb V2 instance. To do so, you can follow
 ### Initialize the provider
 ```hcl
 provider "influxdbv2-onboarding" {
-  url = "http://influxdb.example.com:9999"
+  url = "http://influxdb.example.com:8086"
   username = "influxdbUsername"
   password = "influxdbPassword"
 }
@@ -66,5 +66,5 @@ terraform apply
 
 ## Dev
 
-In case you need to update the influx client, run `go get github.com/lancey-energy-storage/influxdb-client-go@<commit sha>`.  
-Also don't forget to run `go mod tidy` from time to time to remove useless dependencies.
+This provider uses the official Go client developed by influxdata itself. For informations, follow this [link](https://github.com/influxdata/influxdb-client-go)
+Don't forget to run `go mod tidy` from time to time to remove useless dependencies.

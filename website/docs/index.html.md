@@ -1,7 +1,7 @@
 ---
-layout: "influxdbv2-onboarding"
+layout: "influxdb-v2-onboarding"
 page_title: "Provider: InfluxDB V2 Onboarding"
-sidebar_current: "docs-influxdbv2-onboarding-index"
+sidebar_current: "docs-influxdb-v2-onboarding-index"
 description: |-
   The InfluxDB V2 Onboarding provider configures the onboarding on an InfluxDB V2 server.
 ---

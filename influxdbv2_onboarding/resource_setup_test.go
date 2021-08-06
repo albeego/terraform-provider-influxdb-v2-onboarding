@@ -15,7 +15,7 @@ func TestResourceSetup(t *testing.T) {
 				Config: testAccConfig,
 				Check: resource.ComposeTestCheckFunc(
 
-					testAccCheckSetupExists("influxdbv2-onboarding_setup.setup"),
+					testAccCheckSetupExists("influxdb-v2-onboarding_setup.setup"),
 				),
 			},
 		},
@@ -49,7 +49,7 @@ func testAccCheckSetupExists(n string) resource.TestCheckFunc {
 }
 
 var testAccConfig = `
-resource "influxdbv2-onboarding_setup" "setup" {
+resource "influxdb-v2-onboarding_setup" "setup" {
   username = "test"
   password = "test1234"
   bucket = "test-bucket"

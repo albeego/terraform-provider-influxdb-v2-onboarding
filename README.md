@@ -46,7 +46,7 @@ At first, you need to start a new Influxdb V2 instance. To do so, you can follow
 
 ### Initialize the provider
 ```hcl
-provider "influxdbv2-onboarding" {
+provider "influxdb-v2-onboarding" {
   url = "http://influxdb.example.com:8086"
   username = "influxdbUsername"
   password = "influxdbPassword"

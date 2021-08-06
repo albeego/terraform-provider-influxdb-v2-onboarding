@@ -1,7 +1,7 @@
 ---
-layout: "influxdbv2-onboarding"
-page_title: "InfluxDB V2 onboarding: influxdbv2-onboarding_setup"
-sidebar_current: "docs-influxdbv2-onboarding-resource-setup"
+layout: "influxdb-v2-onboarding"
+page_title: "InfluxDB V2 onboarding: influxdb-v2-onboarding_setup"
+sidebar_current: "docs-influxdb-v2-onboarding-resource-setup"
 description: |-
   The influxdbv2-oboarding_setup resource manages influxdb v2 onboarding setup.
 ---
@@ -9,7 +9,7 @@ description: |-
 ## Example Usage
 
 ```hcl
-resource "influxdbv2-onboarding_setup" "setup" {
+resource "influxdb-v2-onboarding_setup" "setup" {
   username = "<some_user>"
   password = "<some_password>"
   bucket = "<some_bucket>"

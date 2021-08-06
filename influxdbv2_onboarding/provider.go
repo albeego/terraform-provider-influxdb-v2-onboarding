@@ -9,7 +9,7 @@ import (
 func Provider() terraform.ResourceProvider {
 	return &schema.Provider{
 		ResourcesMap: map[string]*schema.Resource{
-			"influxdbv2-onboarding_setup": ResourceSetup(),
+			"influxdb-v2-onboarding_setup": ResourceSetup(),
 		},
 		Schema: map[string]*schema.Schema{
 			"url": {

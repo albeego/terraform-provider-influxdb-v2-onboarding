@@ -9,7 +9,7 @@ import (
 )
 
 var testProviders = map[string]terraform.ResourceProvider{
-	"influxdbv2-onboarding": Provider(),
+	"influxdb-v2-onboarding": Provider(),
 }
 
 func TestProvider(t *testing.T) {
@@ -19,6 +19,6 @@ func TestProvider(t *testing.T) {
 }
 
 func TestMain(m *testing.M) {
-	acctest.UseBinaryDriver("influxdbv2-onboarding", Provider)
+	acctest.UseBinaryDriver("influxdb-v2-onboarding", Provider)
 	resource.TestMain(m)
 }

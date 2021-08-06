@@ -1,17 +1,17 @@
 terraform {
   required_providers {
-    influxdbv2-onboarding = {
-      source = "lancey.fr/influx/influxdbv2-onboarding"
+    influxdb-v2-onboarding = {
+      source = "lancey.fr/influx/influxdb-v2-onboarding"
       version = "0.2.0"
     }
   }
 }
 
-provider "influxdbv2-onboarding" {
+provider "influxdb-v2-onboarding" {
   url = "http://localhost:8086"
 }
 
-resource "influxdbv2-onboarding_setup" "setup" {
+resource "influxdb-v2-onboarding_setup" "setup" {
   username = "test"
   password = "test1234"
   bucket = "test-bucket"
@@ -20,17 +20,17 @@ resource "influxdbv2-onboarding_setup" "setup" {
 }
 
 output "token" {
-  value = influxdbv2-onboarding_setup.setup.token
+  value = influxdb-v2-onboarding_setup.setup.token
 }
 output "user_id" {
-  value = influxdbv2-onboarding_setup.setup.user_id
+  value = influxdb-v2-onboarding_setup.setup.user_id
 }
 output "org_id" {
-  value = influxdbv2-onboarding_setup.setup.org_id
+  value = influxdb-v2-onboarding_setup.setup.org_id
 }
 output "bucket_id" {
-  value = influxdbv2-onboarding_setup.setup.bucket_id
+  value = influxdb-v2-onboarding_setup.setup.bucket_id
 }
 output "auth_id" {
-  value = influxdbv2-onboarding_setup.setup.auth_id
+  value = influxdb-v2-onboarding_setup.setup.auth_id
 }

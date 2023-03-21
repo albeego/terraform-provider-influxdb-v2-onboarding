@@ -1,8 +1,8 @@
 package main
 
 import (
+	"github.com/albeego/terraform-provider-influxdb-v2-onboarding/influxdbv2_onboarding"
 	"github.com/hashicorp/terraform-plugin-sdk/plugin"
-	"github.com/lancey-energy-storage/terraform-provider-influxdb-v2-onboarding/influxdbv2_onboarding"
 )
 
 func main() {

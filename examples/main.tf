@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     influxdb-v2-onboarding = {
-      source = "lancey.fr/influx/influxdb-v2-onboarding"
+      source = "albeego/influxdb-v2-onboarding"
       version = "0.2.0"
     }
   }

@@ -1,12 +1,12 @@
 package influxdbv2_onboarding
 
 import (
-	"encoding/json"
-	"net/http"
 	"context"
+	"encoding/json"
 	"fmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 	"github.com/influxdata/influxdb-client-go/v2"
+	"net/http"
 )
 
 type Setup struct {
@@ -67,7 +67,7 @@ func ResourceSetup() *schema.Resource {
 				Computed: true,
 			},
 			"server_url": {
-				Type: 	schema.TypeString,
+				Type:     schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -118,6 +118,7 @@ func resourceSetupRead(d *schema.ResourceData, meta interface{}) error {
 	}
 
 	d.Set("allowed", setup.Allowed)
+    d.SetId(d.Get("server_url").(string))
 	return nil
 }
 
